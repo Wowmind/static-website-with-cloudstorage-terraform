@@ -4,17 +4,6 @@ create a project on google cloud, You must have a billing account.
 create a service account that have both roles of Editor and storage object admin to have acess.
 Download the json-key of the service account and upload it to your code.
 Then create your bucket first.
-resource "google_storage_bucket" "website" {
-  name = "my-web-info-site"
-  location = var.region
-  force_destroy = true
-  
-  website {
-    main_page_suffix = "index.html"
-    not_found_page = "404.html"
-  }
-}
-
 Terraform init. terraform plan, terraform apply.
 
 Then specified the source of your index.html and 404.html file from your local directory.
