@@ -43,9 +43,10 @@ resource "google_storage_bucket_iam_binding" "public_access" {
 # create an http loadbalancer
 
 resource "google_compute_backend_bucket" "website-backend-0" {
+  provider = google
   name = "website-backend-0"
   bucket_name = google_storage_bucket.website.name
-  
+  enable_cdn = true
 }
 
 resource "google_compute_url_map" "website-backend-url-map0" {
@@ -58,23 +59,27 @@ resource "google_compute_url_map" "website-backend-url-map0" {
   path_matcher {
     name = "allpaths"
     default_service = google_compute_backend_bucket.website-backend-0.self_link
+    
   }
+  
 }
 
 resource "google_compute_target_http_proxy" "website-proxy-00" {
   name = "website-proxy-00"
   url_map = google_compute_url_map.website-backend-url-map0.name
+  
 }
 
 # Enable CDN for http load balancer
-
-resource "google_compute_backend_service" "website-backend-service-0" {
-  name = "website-backend-service-0"
+/*
+resource "google_compute_backend_service" "website-backend-service-ze" {
+  name = "website-backend-service-ze"
   backend {
     group = google_compute_backend_bucket.website-backend-0.self_link
   }
   enable_cdn = true
 }
+*/
 
 resource "google_compute_global_forwarding_rule" "website-forward-rule-0" {
   name = "website-forward-rule-0"
