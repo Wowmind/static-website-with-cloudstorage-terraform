@@ -65,8 +65,9 @@ resource "google_compute_url_map" "website-backend-url-map0" {
 }
 
 resource "google_compute_target_http_proxy" "website-proxy-00" {
+  provider = google
   name = "website-proxy-00"
-  url_map = google_compute_url_map.website-backend-url-map0.name
+  url_map = google_compute_url_map.website-backend-url-map0.self_link
   
 }
 
