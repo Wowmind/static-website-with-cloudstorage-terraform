@@ -83,8 +83,10 @@ resource "google_compute_backend_service" "website-backend-service-ze" {
 */
 
 resource "google_compute_global_forwarding_rule" "website-forward-rule-0" {
+  provider = google
   name = "website-forward-rule-0"
   target = google_compute_target_http_proxy.website-proxy-00.self_link
+  
 
   port_range = "80"
 }
